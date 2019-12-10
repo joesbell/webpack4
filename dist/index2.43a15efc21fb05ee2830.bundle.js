@@ -1,0 +1,1 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["index2"],[],[["./scripts/index2.js","runtime~index2","vendor~index~index2","commons~index~index2","commons~index2"]]]);
