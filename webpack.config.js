@@ -7,7 +7,7 @@ module.exports = {
     index: "./scripts/index.js"//入口文件，不配置的话默认为src目录下的index.js
   },
   output: {
-    filename: "[name].bundle.js",//【name】便是入口文件名
+    filename: "[name].[hash].bundle.js",//【name】便是入口文件名
     path: path.join(__dirname, "dist")
   },
   module: {//处理对象文件模块
@@ -32,24 +32,17 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
-      chunks: 'async',
-      minSize: 10,
-      maxSize: 0,
-      minChunks: 1,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
-      automaticNameDelimiter: '~',
-      name: true,
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
           name: 'jquery',
-          chunks: 'initial'
+          chunks: 'all'
         },
         commons: {
-          name: 'test',
-          chunks: 'initial',
-          minChunks: 2,//最小引用2次
+          test: /[\\/]scripts[\\/]/,
+          name: 'commons',
+          chunks: 'all',
+          minChunks: 1,//最小引用2次
           minSize: 0 // 只要超出0字节就生成一个新包
         }
       }
