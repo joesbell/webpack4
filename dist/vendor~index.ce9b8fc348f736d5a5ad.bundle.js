@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["vendor~index~index2"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["vendor~index"],{
 
 /***/ "./node_modules/jquery/dist/jquery.js":
 /*!********************************************!*\

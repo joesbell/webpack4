@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   entry: {
     index: "./scripts/index.js",//入口文件，不配置的话默认为src目录下的index.js,
-    index2: "./scripts/index2.js"
+    // index2: "./scripts/index2.js"
   },
   output: {
     filename: "[name].[hash].bundle.js",//【name】便是入口文件名
@@ -32,17 +32,17 @@ module.exports = {
     ]
   },
   optimization: {
-    runtimeChunk: "multiple",
+    runtimeChunk: "single",
     splitChunks: {
       chunks: 'all',
       cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-        },
         commons: {
           test: /[\\/]scripts[\\/]/,
           minChunks: 1,//最小引用2次
           minSize: 0 // 只要超出0字节就生成一个新包
+        },
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
         }
       }
     }

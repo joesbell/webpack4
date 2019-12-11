@@ -3,8 +3,8 @@ import c from './c.js'
 const a = {
   init() {
     console.log("a.init");
-    const divElement = document.createElement('div');
-    divElement.className = ass['my-class'];
+    // const divElement = document.createElement('div');
+    // divElement.className = ass['my-class'];
   },
   cinit() {
     c.init()
