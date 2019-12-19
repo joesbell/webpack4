@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCss = require("optimize-css-assets-webpack-plugin")
 const TerserPlugin = require('terser-webpack-plugin');
+const webpack = require("webpack")
 
 module.exports = env => {
   console.log(env.NODE_ENV);
@@ -14,13 +15,27 @@ module.exports = env => {
     },
     output: {
       filename: "[name].[hash].bundle.js",//【name】便是入口文件名
-      path: path.join(__dirname, "/dist/test")
+      path: path.resolve(__dirname, "dist")
+    },
+    resolve: {
+      extensions: ['.js', '.jsx']
     },
     module: {//处理对象文件模块
       rules: [
         {
           test: /\.css$/,
           use: [MiniCssExtractPlugin.loader, 'css-loader']//处理css
+        },
+        {
+          test: /\.jsx?$/,
+          exclude: /node_modules/,
+          use: [{
+            loader: "babel-loader"
+          }]
+        },
+        {
+          test: /\.(scss|sass)$/,
+          use: ['style-loader', 'css-loader', 'sass-loader']
         },
         {
           test: /\.(png|jpg|gif)$/,
@@ -62,18 +77,28 @@ module.exports = env => {
       }
     },
     plugins: [//对应插件
+      new CleanWebpackPlugin(),//传入数组，删除指定目录
       new HtmlWebpackPlugin({//配置
         title: "测试",
         filename: "index.html",//输出文件名
         template: "./index.html"//以当前目录下的Index.html文件为模板生成dist/index.html文件
       }),
-      new CleanWebpackPlugin(),//传入数组，删除指定目录
       new MiniCssExtractPlugin({
         filename: "[name].css",
         chunkFilename: "[id].css"
       }),
       // 热更新，热更新不是刷新
       // new webpack.HotModuleReplacementPlugin()
-    ]
+    ],
+    devServer: {
+      contentBase: "./dist",
+      host: "localhost",
+      port: "8888",
+      stats: "errors-only",
+      overlay: true,//用来显示编译的错误
+      open: true,//自动打开浏览器
+      hot: true//热更新，这里需要配置hotModuleReplacementPlugin插件
+    },
+    devtool: env.NODE_ENV === "development" ? "cheap-module-eval-source-map" : "cheap-module-source-map"
   }
 }

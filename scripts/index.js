@@ -1,12 +1,8 @@
-import a from './a.js'
-import b from './b'
-import d from './d'
-import $ from 'jquery'
-const s = () => {
-  a.init();
-  a.cinit();
-  b()
-  d()
-  console.log($)
-}
-s()
+import React from 'react';
+import ReactDOM from 'react-dom';
+// import './index.css';
+import App from './App';
+import { BrowserRouter } from 'react-router-dom'
+// import * as serviceWorker from './serviceWorker';
+
+ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'));

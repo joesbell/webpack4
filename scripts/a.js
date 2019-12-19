@@ -1,5 +1,5 @@
 import ass from './a.css'
-import c from './c.js'
+import c from './c'
 const a = {
   init() {
     console.log("a.init");
