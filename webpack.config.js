@@ -86,7 +86,7 @@ module.exports = env => {
       new CleanWebpackPlugin(), //传入数组，删除指定目录
       new HtmlWebpackPlugin({
         //配置
-        title: "测试",
+        title: "",
         filename: "index.html", //输出文件名
         template: "./index.html" //以当前目录下的Index.html文件为模板生成dist/index.html文件
       }),
