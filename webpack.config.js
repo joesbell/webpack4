@@ -9,7 +9,7 @@ const webpack = require("webpack");
 module.exports = env => {
   return {
     entry: {
-      index: "./scripts/index.js" //入口文件，不配置的话默认为src目录下的index.js,
+      index: "./src/index.ts" //入口文件，不配置的话默认为src目录下的index.js,
       // index2: "./scripts/index2.js"
     },
     output: {
@@ -17,7 +17,7 @@ module.exports = env => {
       path: path.resolve(__dirname, "dist")
     },
     resolve: {
-      extensions: [".js", ".jsx"]
+      extensions: [".js", ".jsx", ".ts", "tsx"]
     },
     module: {
       //处理对象文件模块
@@ -28,9 +28,26 @@ module.exports = env => {
             env.NODE_ENV == "production"
               ? MiniCssExtractPlugin.loader
               : "style-loader",
-            "css-loader",
+            {
+              loader: "css-loader",
+              options: {
+                modules: {
+                  localIdentName: '[path][name]--[local]--[hash:base64:5]'
+                }
+
+              }
+            },
             "postcss-loader",
             "sass-loader"
+          ]
+        },
+        {
+          test: /\.tsx?$/,
+          exclude: /node_modules/,
+          use: [
+            {
+              loader: "ts-loader"
+            }
           ]
         },
         {
@@ -88,7 +105,12 @@ module.exports = env => {
         //配置
         title: "",
         filename: "index.html", //输出文件名
-        template: "./index.html" //以当前目录下的Index.html文件为模板生成dist/index.html文件
+        template: "./index.html", //以当前目录下的Index.html文件为模板生成dist/index.html文件，
+        minify: {
+          removeComments: true, // 移除HTML中的注释
+          collapseWhitespace: true, // 删除空白符与换行符
+          minifyCSS: true// 压缩内联css
+        }
       }),
       new MiniCssExtractPlugin({
         filename: "[name].css",

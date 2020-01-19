@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --progress  --mode development --env.NODE_ENV=development",
-    "build": "webpack --mode production --env.NODE_ENV=production"
+    "dev": "webpack-dev-server --progress   --mode development --env.NODE_ENV=development",
+    "build": "webpack  --mode production --env.NODE_ENV=production"
   },
   "husky": {
     "hooks": {
@@ -14,17 +14,11 @@
     }
   },
   "lint-staged": {
-    "scripts/*.{js,jsx,json,md}": [
-      "eslint --fix ",
+    "src/*.{js,jsx,json,md,tsx,ts}": [
+      "eslint  --fix --max-warnings=0",
       "prettier --write",
       "git add"
     ]
-  },
-  "prettier": {
-    "printWidth": 120
-  },
-  "eslintConfig": {
-    "extends": []
   },
   "repository": {
     "type": "git",
@@ -63,10 +57,13 @@
     "react-router-dom": "^5.1.2",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.1",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.4",
     "url-loader": "^3.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
+    "webpack-dev-server": "^3.9.0",
+    "webpack-merge": "^4.2.2"
   },
   "dependencies": {
     "husky": "^3.1.0",
